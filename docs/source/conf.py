@@ -160,8 +160,10 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-
-
+suppress_warnings = [
+    "image.nonlocal_uri",
+    #    'app.add_directive',  # this evtl. suppresses the numpydoc induced warning
+]
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
