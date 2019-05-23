@@ -1,0 +1,2 @@
+# required for readthedocs.org
+numpy>=1.14.5
