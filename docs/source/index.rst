@@ -130,6 +130,10 @@ Now, your documentation should be ready and hosted on
 `Read the Docs <https://readthedocs.org>`_. With every push to your
 repo, the documentation will automatically be built by Read the Docs.
 
+In case you want to add a readthedocs badge, have a look at the first
+line after the heading of the `README.md` of this project.
+
+
 Requirements
 ============
 

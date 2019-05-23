@@ -1,5 +1,7 @@
 # Python-Deployment
 
+[![Documentation Status](https://readthedocs.org/projects/docs/badge/?version=latest)](https://python-deployment.readthedocs.io/en/latest/)
+
 Examples of Python Deployment Workflows
 
 
@@ -120,3 +122,6 @@ activate advanced options.
 Now, your documentation should be ready and hosted on
 [Read the Docs](https://readthedocs.org). With every push to your
 repo, the documentation will automatically be built by Read the Docs.
+
+In case you want to add a readthedocs badge, have a look at the first
+line after the heading of the `README.md` of this project.
