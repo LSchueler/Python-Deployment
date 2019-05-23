@@ -1,5 +1,29 @@
 # -*- coding: utf-8 -*-
-from deployment import deploy
-from deployment.deploy import add
+"""
+Purpose
+=======
 
-__all__ = ["add"]
+This is a very simple Python script with which different deployment steps can
+be tested.
+
+Subpackages
+===========
+
+.. autosummary::
+    deploy
+
+Functions
+=========
+
+.. currentmodule:: deployment.deploy
+
+.. autosummary::
+    mat_mul_np
+
+"""
+
+
+from deployment import deploy
+from deployment.deploy import mat_mul_np
+
+__all__ = ["mat_mul_np"]
