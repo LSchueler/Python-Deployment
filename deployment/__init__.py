@@ -19,11 +19,13 @@ Functions
 
 .. autosummary::
     mat_mul_np
+    mat_mul_cy
 
 """
 
 
 from deployment import deploy
 from deployment.deploy import mat_mul_np
+from deployment.matmul import mat_mul_cy
 
-__all__ = ["mat_mul_np"]
+__all__ = ['mat_mul_np', 'mat_mul_cy']
