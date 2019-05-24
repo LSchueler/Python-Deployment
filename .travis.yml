@@ -1,8 +1,31 @@
 language: python
-python:
-  # We don't actually use the Travis Python, but this keeps it organized.
-  - "2.7"
-  - "3.6"
+
+matrix:
+  include:
+    - name: "Linux py27"
+      sudo: required
+      language: python
+      python: 2.7
+      services: docker
+      env:
+        - PIP=pip
+        - CIBW_BUILD="cp27-*"
+        - COVER="off"
+
+    - name: "Linux py36"
+      sudo: required
+      language: python
+      python: 3.6
+      services: docker
+      env:
+        - PIP=pip
+        - CIBW_BUILD="cp36-*"
+        - COVER="on"
+
+env:
+  global:
+    - TWINE_USERNAME=LSchueler
+
 install:
   - sudo apt-get update
   # We do this conditionally because it saves us some downloading if the
@@ -20,9 +43,31 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy>=1.14.5 cython>=0.28.3 setuptools>=41.0.1 pytest>=4.5.0 pytest-cov>=2.5.1
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy>=1.14.5 cython>=0.28.3 setuptools>=41.0.1 pytest>=4.5.0 pytest-cov>=2.5.1 coveralls
   - source activate test-environment
   - python setup.py build_ext --inplace
 
 script:
-  python -m pytest --cov deployment --cov-report term-missing -v tests/
+  - $PIP install cibuildwheel==0.10.2
+  - cibuildwheel --output-dir wheelhouse
+  - |
+    if [[ $COVER == "on" ]]; then
+      python -m pytest --cov deployment --cov-report term-missing -v tests/
+      python -m coveralls
+    fi
+
+after_success:
+  # pypi upload ("test" allways and "official" on TAG)
+  conda install twine
+  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
+  - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
+  - |
+    if [[ $TRAVIS_TAG ]]; then
+      python -m twine upload --verbose --skip-existing wheelhouse/*.whl
+      python -m twine upload --verbose --skip-existing dist/*.tar.gz
+    fi
+
+notifications:
+  email:
+    recipients:
+    - mostem@posteo.de
