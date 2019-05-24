@@ -46,22 +46,17 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy>=1.14.5 cython>=0.28.3 setuptools>=41.0.1 pytest>=4.5.0 pytest-cov>=2.5.1 coveralls
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy>=1.14.5 cython>=0.28.3 setuptools>=41.0.1 pytest>=4.5.0 pytest-cov>=2.5.1
   - source activate test-environment
   - python setup.py build_ext --inplace
 
 script:
   - $PIP install cibuildwheel==0.10.2
   - cibuildwheel --output-dir wheelhouse
-  - |
-    if [[ $COVER == "on" ]]; then
-      python -m pytest --cov deployment --cov-report term-missing -v tests/
-      python -m coveralls
-    fi
 
 after_success:
   # pypi upload ("test" allways and "official" on TAG)
-  conda install twine
+  - conda install twine
   - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ wheelhouse/*.whl
   - python -m twine upload --verbose --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*.tar.gz
   - |
