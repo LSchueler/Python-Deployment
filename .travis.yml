@@ -21,9 +21,9 @@ install:
   - conda info -a
 
   # Replace dep1 dep2 ... with your dependencies
-  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy>=1.14.5 cython>=0.28.3 setuptools>=41.0.1 pytest=4.5.0
+  - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION numpy>=1.14.5 cython>=0.28.3 setuptools>=41.0.1 pytest=4.5.0 pytest-cov=2.7.1
   - source activate test-environment
   - python setup.py install
 
 script:
-  python3 -m pytest --cov deployment --cov-report term-missing -v tests/
+  python -m pytest --cov deployment --cov-report term-missing -v tests/
