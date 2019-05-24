@@ -25,7 +25,6 @@ matrix:
 env:
   global:
     - TWINE_USERNAME=LSchueler
-    - TWINE_USERNAME=geostatframework
     - CIBW_BEFORE_BUILD="pip install numpy==1.14.5 cython==0.28.3"
     - CIBW_TEST_REQUIRES=pytest-cov
 
