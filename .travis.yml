@@ -25,6 +25,7 @@ matrix:
 env:
   global:
     - TWINE_USERNAME=LSchueler
+    - ANACONDA_USERNAME=LSchueler
     - CIBW_BEFORE_BUILD="pip install numpy==1.14.5 cython==0.28.3"
     - CIBW_TEST_REQUIRES=pytest-cov
 
@@ -64,6 +65,12 @@ after_success:
       python -m twine upload --verbose --skip-existing wheelhouse/*.whl
       python -m twine upload --verbose --skip-existing dist/*.tar.gz
     fi
+
+  - conda skeleton pypi python-deployment
+  - conda-build python-deployment
+  - conda install anaconda-client
+  - anaconda -t $ANACONDA_TOKEN -u $ANACONDA_USERNAME upload conda-build --output
+
 
 notifications:
   email:
