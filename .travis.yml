@@ -71,7 +71,7 @@ after_success:
       python -m twine upload --verbose --skip-existing dist/*.tar.gz
     fi
 
-  - conda install conda-build anaconda-client
+  - conda install conda-build anaconda-client cython
   - conda skeleton pypi python-deployment
   - conda-build python-deployment
   - anaconda -t $ANACONDA_TOKEN upload $(conda-build --output)
