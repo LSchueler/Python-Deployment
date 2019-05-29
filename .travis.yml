@@ -52,6 +52,7 @@ install:
 script:
   - $PIP install cibuildwheel==0.10.2
   - cibuildwheel --output-dir wheelhouse
+  - python -m pytest --cov deployment --cov-report term-missing -v tests/
 
 after_success:
   # pypi upload ("test" allways and "official" on TAG)
