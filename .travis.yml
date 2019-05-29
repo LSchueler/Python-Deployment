@@ -52,6 +52,12 @@ install:
 script:
   - $PIP install cibuildwheel==0.10.2
   - cibuildwheel --output-dir wheelhouse
+  - rm -rf dist
+  - python -m pip install -U numpy==1.14.5 cython==0.28.3 setuptools
+  - python -m pip install pytest-cov coveralls
+  - python -m pip install -r docs/requirements.txt
+  - python setup.py sdist
+  - python setup.py build_ext --inplace
   - python -m pytest --cov deployment --cov-report term-missing -v tests/
 
 after_success:
