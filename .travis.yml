@@ -68,7 +68,7 @@ after_success:
   - conda skeleton pypi python-deployment
   - conda-build python-deployment
   - conda install anaconda-client
-  - anaconda -t $ANACONDA_TOKEN upload conda-build --output
+  - anaconda -t $ANACONDA_TOKEN upload $(conda-build --output)
 
 
 notifications:
