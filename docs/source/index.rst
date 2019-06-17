@@ -56,7 +56,7 @@ support of Numpy.
        'sphinx.ext.imgmath',
        'sphinx.ext.ifconfig',
        'sphinx.ext.viewcode',
-       'sphinx.ext.autosummery',
+       'sphinx.ext.autosummary',
        'sphinx.ext.napoleon',
        'numpydoc']
 

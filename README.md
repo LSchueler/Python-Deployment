@@ -53,7 +53,7 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.imgmath',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    'sphinx.ext.autosummery',
+    'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
     'numpydoc']
 ```
@@ -105,7 +105,6 @@ folder for an example and how to use autosummary in the source files.
 
 ### Publishing on Read the Docs
 
-
 1. In the `docs/` folder create a file `requirements.txt` with a content like
 
 ```python
@@ -125,3 +124,36 @@ repo, the documentation will automatically be built by Read the Docs.
 
 In case you want to add a readthedocs badge, have a look at the first
 line after the heading of the `README.md` of this project.
+
+
+## Adding Unit tests
+
+Using unit tests can immensely help you avoiding bugs. Here is a template
+of how to use unit tests.
+
+1. Create a directory `tests` in your main directory.
+2. Create one test-file per module, see this repositoy for an example.
+3. With a command like `python -m unittest discover tests/` you can simply
+test all your unit tests. Alternatively, after installing `pytest` and
+`pytest-cov`, you get a more detailed report with
+`py.test --cov --cov-report term-missing -v tests`
+
+
+## Deploying with Travis CI
+
+
+### Setting up Travis CI
+
+1. Create an account for [PyPI](https://pypi.org/) and for [TestPyPI](https://test.pypi.org/)
+2. Log in or sign up on [Travis CI](https://travis-ci.org)
+3. Activate you project under `Settings`
+4. Add your PyPI password as an environment variable `TWINE_PASSWORD` and
+check that the button `Display value in build log` is switched off
+3. Setup your `.travis.yml` file as shown in this repository
+4. This setup does several different things:
+  - Executes the [unit tests](#Adding-Unit-testing)
+  - With the help of `cibuildwheel` everything is built for the deployment
+  with PyPI
+  - If your commit has a git tag, the package is uploaded to PyPI,
+  otherwise it is uploaded to TestPyPI for testing purposes
+  - conda packages are built
